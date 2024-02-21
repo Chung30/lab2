@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private void ActionButton() {
         btnAdd.setOnClickListener(v->{
             Intent intent = new Intent(this, SubActivity.class);
+            ArrayList<Integer> listId = new ArrayList<>();
+            for(Contact c : listContact)
+                listId.add(c.getId());
+            intent.putIntegerArrayListExtra("listId", listId);
             startActivityForResult(intent, 100);
         });
 
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 100 && resultCode == 150){
             listContact.add(contact);
             contactAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         }
     }
 
