@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtName;
     private ArrayList<Contact> listContact = new ArrayList<>();
     private ContactAdapter contactAdapter;
+    private ArrayList<Integer> listImg = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +53,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle b = data.getExtras();
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            Bundle b = data.getExtras();
 
-        int id = b.getInt("id");
-        String name = b.getString("name");
-        String phone = b.getString("phone");
-        Boolean status = b.getBoolean("status");
+            int id = b.getInt("id");
+            String name = b.getString("name");
+            String phone = b.getString("phone");
+            int img = b.getInt("img");
+            Boolean status = b.getBoolean("status");
 
-        Contact contact = new Contact(id, name, phone, status);
-        if(requestCode == 100 && resultCode == 150){
+            Contact contact = new Contact(id, name, phone, img, status);
             listContact.add(contact);
             contactAdapter.notifyDataSetChanged();
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
@@ -68,10 +70,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void UpdateData() {
-        listContact.add(new Contact(1, "Chung", "011", true));
-        listContact.add(new Contact(2, "Chung", "011", true));
-        listContact.add(new Contact(3, "Chung", "011", false));
-        listContact.add(new Contact(4, "Chung", "011", false));
+        listImg.add(R.drawable.img1);
+        listImg.add(R.drawable.img2);
+        listImg.add(R.drawable.img3);
+        listImg.add(R.drawable.img4);
+
+        listContact.add(new Contact(1, "Chung", "011", listImg.get(0), true));
+        listContact.add(new Contact(2, "Chung", "011", listImg.get(1), true));
+        listContact.add(new Contact(3, "Chung", "011", listImg.get(2), false));
+        listContact.add(new Contact(4, "Chung", "011", listImg.get(3), false));
     }
 
     private void Init() {

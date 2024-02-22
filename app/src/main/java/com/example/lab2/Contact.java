@@ -3,13 +3,23 @@ package com.example.lab2;
 public class Contact {
     private int id;
     private String name, phone;
+    private int img;
     private boolean status;
 
-    public Contact(int id, String name, String phone, boolean status) {
+    public Contact(int id, String name, String phone, int img, boolean status) {
         this.id = id;
         this.name = name;
         this.phone = phone;
+        this.img = img;
         this.status = status;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 
     public int getId() {

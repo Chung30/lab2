@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,10 +44,12 @@ public class ContactAdapter extends BaseAdapter {
 
         TextView tvName = v.findViewById(R.id.tvName);
         TextView tvPhone = v.findViewById(R.id.tvPhone);
+        ImageView avatar = v.findViewById(R.id.imgAvatar);
         CheckBox cb = v.findViewById(R.id.checkBox);
 
         tvName.setText(data.get(position).getName());
         tvPhone.setText(data.get(position).getPhone());
+        avatar.setImageResource(data.get(position).getImg());
         cb.setChecked(data.get(position).isStatus());
 
         cb.setOnClickListener(v1 -> {
