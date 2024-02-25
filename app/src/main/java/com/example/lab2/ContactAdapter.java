@@ -6,20 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class ContactAdapter extends BaseAdapter {
     Context mContext;
-    ArrayList<Contact> data = new ArrayList<>();
+    ArrayList<Contact> data;
     LayoutInflater inflater;
-
-    public ContactAdapter(Context mContext, ArrayList<Contact> data) {
+    EditText edtFineName;
+    public ContactAdapter(Context mContext, ArrayList<Contact> data, EditText edtFineName) {
         this.mContext = mContext;
         this.data = data;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.edtFineName = edtFineName;
     }
 
     @Override
@@ -54,6 +57,11 @@ public class ContactAdapter extends BaseAdapter {
 
         cb.setOnClickListener(v1 -> {
             data.get(position).setStatus(cb.isChecked());
+        });
+
+        v.setOnClickListener(v2 -> {
+            edtFineName.setText(data.get(position).getName());
+            Toast.makeText(v2.getContext(), "" + data.get(position).getName(), Toast.LENGTH_SHORT).show();
         });
         return v;
     }

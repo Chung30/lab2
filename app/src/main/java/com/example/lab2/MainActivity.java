@@ -1,8 +1,10 @@
 package com.example.lab2;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private Button btnAdd, btnDel;
-    private EditText edtName;
+    private EditText edtFindName;
     private ArrayList<Contact> listContact = new ArrayList<>();
     private ContactAdapter contactAdapter;
     private ArrayList<Integer> listImg = new ArrayList<>();
@@ -40,13 +42,41 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnDel.setOnClickListener(v->{
-            for(int i=0;i<listContact.size();){
-                if(listContact.get(i).isStatus()==true){
-                    listContact.remove(i);
-                }
-                else i++;
-            }
-            contactAdapter.notifyDataSetChanged();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Bạn chắc chắn muốn xoá?");
+            builder.setCancelable(true);
+
+            builder.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            for(int i=0;i<listContact.size();){
+                                if(listContact.get(i).isStatus()==true){
+                                    listContact.remove(i);
+                                }
+                                else i++;
+                            }
+                            contactAdapter.notifyDataSetChanged();
+                            dialog.cancel();
+                        }
+                    });
+
+            builder.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        });
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            edtFindName.setText(listContact.get(position).getName());
+            Toast.makeText(MainActivity.this, "" + listContact.get(position).getName(), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -85,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         btnAdd = findViewById(R.id.btnAdd);
         btnDel = findViewById(R.id.btnDel);
-        edtName = findViewById(R.id.edtName);
+        edtFindName = findViewById(R.id.edtFindName);
 
-        contactAdapter = new ContactAdapter(this, listContact);
+        contactAdapter = new ContactAdapter(this, listContact, edtFindName);
         listView.setAdapter(contactAdapter);
         contactAdapter.notifyDataSetChanged();
     }

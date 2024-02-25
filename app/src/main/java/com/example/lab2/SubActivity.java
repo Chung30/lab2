@@ -96,7 +96,7 @@ public class SubActivity extends AppCompatActivity {
 
     private void Init() {
         edtId = findViewById(R.id.edtId);
-        edtName = findViewById(R.id.edtName);
+        edtName = findViewById(R.id.edtFindName);
         edtPhone = findViewById(R.id.edtPhone);
         cbAdd = findViewById(R.id.cbAdd);
         btnAdd = findViewById(R.id.btnAdd);
