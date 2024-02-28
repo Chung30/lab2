@@ -1,6 +1,7 @@
 package com.example.lab2;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -52,7 +55,15 @@ public class ContactAdapter extends BaseAdapter {
 
         tvName.setText(data.get(position).getName());
         tvPhone.setText(data.get(position).getPhone());
-        avatar.setImageResource(data.get(position).getImg());
+        String pathImage = data.get(position).getImg();
+        if (pathImage != null && !pathImage.isEmpty()) {
+            Glide.with(mContext)
+                    .load(pathImage)
+                    .into(avatar);
+        } else {
+             avatar.setImageResource(R.drawable.img1);
+        }
+//        System.out.println(data.get(position).getImg());
         cb.setChecked(data.get(position).isStatus());
 
         cb.setOnClickListener(v1 -> {

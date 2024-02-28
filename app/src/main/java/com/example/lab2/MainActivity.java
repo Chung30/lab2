@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             int id = b.getInt("id");
             String name = b.getString("name");
             String phone = b.getString("phone");
-            int img = b.getInt("img");
+            String img = b.getString("img");
             Boolean status = b.getBoolean("status");
 
             Contact contact = new Contact(id, name, phone, img, status);
@@ -100,15 +100,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void UpdateData() {
-        listImg.add(R.drawable.img1);
-        listImg.add(R.drawable.img2);
-        listImg.add(R.drawable.img3);
-        listImg.add(R.drawable.img4);
 
-        listContact.add(new Contact(1, "Chung", "011", listImg.get(0), true));
-        listContact.add(new Contact(2, "Chung", "011", listImg.get(1), true));
-        listContact.add(new Contact(3, "Chung", "011", listImg.get(2), false));
-        listContact.add(new Contact(4, "Chung", "011", listImg.get(3), false));
+        listContact.add(new Contact(1, "Chung", "011", "", true));
+        listContact.add(new Contact(1, "Chung", "011", "", true));
+        listContact.add(new Contact(1, "Chung", "011", "", false));
+        listContact.add(new Contact(1, "Chung", "011", "", false));
     }
 
     private void Init() {
