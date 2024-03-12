@@ -3,10 +3,10 @@ package com.example.lab2;
 public class Contact {
     private int id;
     private String name, phone;
-    private String img;
+    private byte[] img;
     private boolean status;
 
-    public Contact(int id, String name, String phone, String img, boolean status) {
+    public Contact(int id, String name, String phone, byte[] img, boolean status) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -14,11 +14,11 @@ public class Contact {
         this.status = status;
     }
 
-    public String getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 

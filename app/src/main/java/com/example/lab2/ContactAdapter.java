@@ -1,6 +1,8 @@
 package com.example.lab2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +16,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ContactAdapter extends BaseAdapter {
     Context mContext;
     ArrayList<Contact> data;
     LayoutInflater inflater;
-    EditText edtFineName;
-    public ContactAdapter(Context mContext, ArrayList<Contact> data, EditText edtFineName) {
+    public ContactAdapter(Context mContext, ArrayList<Contact> data) {
         this.mContext = mContext;
         this.data = data;
         this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.edtFineName = edtFineName;
     }
 
     @Override
@@ -51,29 +53,21 @@ public class ContactAdapter extends BaseAdapter {
         TextView tvName = v.findViewById(R.id.tvName);
         TextView tvPhone = v.findViewById(R.id.tvPhone);
         ImageView avatar = v.findViewById(R.id.imgAvatar);
-        CheckBox cb = v.findViewById(R.id.checkBox);
+        CheckBox cb = v.findViewById(R.id.subCB);
 
         tvName.setText(data.get(position).getName());
         tvPhone.setText(data.get(position).getPhone());
-        String pathImage = data.get(position).getImg();
-        if (pathImage != null && !pathImage.isEmpty()) {
-            Glide.with(mContext)
-                    .load(pathImage)
-                    .into(avatar);
-        } else {
-             avatar.setImageResource(R.drawable.img1);
-        }
+        byte[] bytes = data.get(position).getImg();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        avatar.setImageBitmap(bitmap);
 //        System.out.println(data.get(position).getImg());
         cb.setChecked(data.get(position).isStatus());
 
         cb.setOnClickListener(v1 -> {
-            data.get(position).setStatus(cb.isChecked());
+            boolean isChecked = cb.isChecked();
+            data.get(position).setStatus(isChecked);
         });
 
-        v.setOnClickListener(v2 -> {
-            edtFineName.setText(data.get(position).getName());
-            Toast.makeText(v2.getContext(), "" + data.get(position).getName(), Toast.LENGTH_SHORT).show();
-        });
         return v;
     }
 }

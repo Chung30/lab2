@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:longClickable="true"
     android:padding="10dp">
 
     <ImageView
@@ -31,9 +32,7 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/subCB"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="" />
+        android:layout_height="wrap_content"/>
 </LinearLayout>
